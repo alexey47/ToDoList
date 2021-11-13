@@ -14,9 +14,9 @@ namespace ToDoList.ViewModels
             NewItem = string.Empty;
             Items = new ObservableCollection<Item>(DataStore.GetItemsAsync().Result);
         }
-        
+
         public ObservableCollection<Item> Items { get; set; }
-        
+
         private string _newItem;
         public string NewItem
         {
@@ -34,20 +34,21 @@ namespace ToDoList.ViewModels
             {
                 return new Command(() =>
                 {
-                    if (NewItem.Replace(" ", "") != string.Empty)
+                    if (NewItem.Replace(" ", "") == string.Empty)
                     {
-                        var newItem = new Item
-                        {
-                            Id = Guid.NewGuid().ToString(),
-                            Date = DateTime.Now,
-                            IsCompleted = false,
-                            Text = NewItem,
-                        };
-
-                        Items.Add(newItem);
-                        DataStore.AddItemAsync(newItem);
+                        return;
                     }
                     
+                    var newItem = new Item
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Date = DateTime.Now,
+                        IsCompleted = false,
+                        Text = NewItem,
+                    };
+                    Items.Add(newItem);
+                    DataStore.AddItemAsync(newItem);
+
                     NewItem = string.Empty;
                 });
             }
@@ -60,12 +61,6 @@ namespace ToDoList.ViewModels
                 {
                     Items.Remove(item);
                     DataStore.DeleteItemAsync(item.Id);
-
-                    var a = DataStore.GetItemsAsync().Result;
-                    foreach (var item1 in a)
-                    {
-                        var n = item1;
-                    }
                 });
             }
         }
@@ -75,12 +70,10 @@ namespace ToDoList.ViewModels
             {
                 return new Command<Item>(item =>
                 {
-                    var idx = Items.IndexOf(item);
-
                     item.IsCompleted = !item.IsCompleted;
                     DataStore.UpdateItemAsync(item);
-
-                    Items.Move(idx, idx);
+                    
+                    Items.Move(0, 0);
                 });
             }
         }

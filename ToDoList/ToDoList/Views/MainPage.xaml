@@ -4,17 +4,11 @@
              x:Class="ToDoList.Views.MainPage"
              xmlns:vm="clr-namespace:ToDoList.ViewModels"
              Title="{Binding Title}"
-             BackgroundColor="{StaticResource PrimaryBackground}">
+             BackgroundColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}">
 
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Color x:Key="Accent">#e8dfd9</Color>
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <ScrollView>
         <CollectionView ItemsSource="{Binding Items}">
@@ -25,15 +19,17 @@
                         <!-- Delete Button -->
                         <SwipeView.RightItems>
                             <SwipeItems Mode="Execute">
-                                <SwipeItemView BackgroundColor="{StaticResource Primary}"
-                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=DeleteItem}"
-                                                       CommandParameter="{Binding .}">
-                                    <Grid HorizontalOptions="Fill" VerticalOptions="Center" Padding="20, 0">
+                                <SwipeItemView BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=DeleteItem}"
+                                               CommandParameter="{Binding .}">
+                                    <Grid HorizontalOptions="Fill" 
+                                          VerticalOptions="Center" 
+                                          Padding="20, 0">
                                         <Label Text="Delete"
-                                                           VerticalOptions="Center"
-                                                           VerticalTextAlignment="Center"
-                                                           FontSize="Medium"
-                                                           TextColor="{StaticResource PrimaryBackground}"/>
+                                               VerticalOptions="Center"
+                                               VerticalTextAlignment="Center"
+                                               FontSize="Medium"
+                                               TextColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}"/>
                                     </Grid>
                                 </SwipeItemView>
                             </SwipeItems>
@@ -42,19 +38,21 @@
                         <!-- Completed/Uncompleted Button -->
                         <SwipeView.LeftItems>
                             <SwipeItems Mode="Execute">
-                                <SwipeItemView BackgroundColor="{StaticResource Primary}"
-                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=CompleteItem}"
-                                                   CommandParameter="{Binding .}">
-                                    <Grid VerticalOptions="Center" Padding="20, 0">
+                                <SwipeItemView BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=CompleteItem}"
+                                               CommandParameter="{Binding .}">
+                                    <Grid VerticalOptions="Center"
+                                          Padding="20, 0">
                                         <Label Text="Completed"
-                                                           VerticalTextAlignment="Center"
-                                                           FontSize="Medium"
-                                                           TextColor="{StaticResource PrimaryBackground}">
+                                               VerticalTextAlignment="Center"
+                                               FontSize="Medium"
+                                               TextColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}">
                                             <Label.Triggers>
                                                 <DataTrigger Binding="{Binding IsCompleted}"
-                                                                     Value="True"
-                                                                     TargetType="Label">
-                                                    <Setter Property="Text" Value="Uncompleted"/>
+                                                             Value="True"
+                                                             TargetType="Label">
+                                                    <Setter Property="Text" 
+                                                            Value="Uncompleted"/>
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
@@ -64,15 +62,19 @@
                         </SwipeView.LeftItems>
 
                         <!-- Text fields -->
-                        <Grid Padding="12, 10" BackgroundColor="{StaticResource PrimaryBackground}" HorizontalOptions="Fill">
-                            <Entry Text="{Binding Text}" MaxLength="51" 
-                                   VerticalOptions="FillAndExpand"
-                                   TextColor="{StaticResource Primary}"
+                        <Grid Padding="12"
+                              BackgroundColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}" >
+                            <Entry Text="{Binding Text}" 
+                                   MaxLength="51" 
+                                   TextColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"
                                    ReturnCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=UpdateItem}"
                                    ReturnCommandParameter="{Binding .}"/>
-                            <Line IsVisible="{Binding IsCompleted}"
-                                  X2="777" Margin="8, 0" VerticalOptions="Center"
-                                  Stroke="#523B35" StrokeThickness="6"/>
+                            <BoxView Color="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"
+                                     Margin="5, 0"
+                                     HeightRequest="2"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Fill" 
+                                     IsVisible="{Binding IsCompleted}"/>
                         </Grid>
 
                     </SwipeView>
@@ -81,10 +83,15 @@
             <CollectionView.Footer>
 
                 <!-- New item field -->
-                <Grid Padding="12, 10" BackgroundColor="{StaticResource PrimaryBackground}">
-                    <Entry Text="{Binding NewItem}" Placeholder="New Task" MaxLength="51"
+                <Grid Padding="12" 
+                      BackgroundColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}">
+                    <Entry Text="{Binding NewItem}" 
+                           Placeholder="New Task" 
+                           PlaceholderColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}"
+                           MaxLength="51"
                            VerticalOptions="Center"
-                           TextColor="{StaticResource Primary}" HorizontalTextAlignment="End"
+                           TextColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}" 
+                           HorizontalTextAlignment="End"
                            ReturnCommand="{Binding AddItem}"/>
                 </Grid>
 

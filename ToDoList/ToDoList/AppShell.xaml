@@ -14,13 +14,18 @@
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.ForegroundColor" Value="White" />
-                <Setter Property="Shell.TitleColor" Value="{StaticResource PrimaryBackground}" />
+                <Setter Property="Shell.BackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}, Light={StaticResource LightSecondaryColor}}" />
+                <Setter Property="Shell.ForegroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}" />
+                <Setter Property="Shell.TitleColor" 
+                        Value="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource PrimaryBackground}"/>
+                <Setter Property="Shell.TabBarBackgroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}" />
+                <Setter Property="Shell.TabBarForegroundColor" 
+                        Value="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}, Light={StaticResource LightPrimaryColor}}" />
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
             </Style>
